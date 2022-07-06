@@ -1,0 +1,42 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    ### User and
+    getUser()
+
+    getProfile()
+
+    getArticles()
+    getArticle()
+
+    getComments()
+
+    getTags()
+}
+
+type Mutation {
+    ### User and authentication
+    loginUser()
+    createUser()
+    updateUser
+
+    ### Profile
+    followUser()
+    unfollowUser()
+
+    ### Articles
+    postArticle()
+    updateArticle()
+    deleteArticle()
+
+    ### Comments
+    postComments()
+    deleteComments()
+
+    ### Favorites
+    postFavorites()
+    deleteFavorites()
+}
