@@ -1,15 +1,36 @@
 import { DataSource } from 'apollo-datasource';
+import { PrismaClient } from '@prisma/client';
+import { User } from '../variable-types';
+
+const prisma = new PrismaClient()
 
 class LocalAPI extends DataSource {
     constructor() {
         super();
+        console.log("[LocalAPI] constructor");
     }
 
-    getUser() {
+    async getUser() {
         console.log('[GET_USER]');
-        return;
+        // prisma.user.query({
+        //     data: {
+
+        //     }
+        // })
+        return {
+            code: 200,
+            success: true,
+            message: "get_user",
+            user: {
+                email: "email.com",
+                token: "token",
+                username: "usernmae",
+                bio: "hello world",
+                image: "img.jpg", 
+            },
+        };
     }
-    loginUser(email: string, password: string) {
+    async loginUser(email: string, password: string) {
         console.log(`[LOGIN_USER] email: ${email}, password: ${password}`);
         return {
             code: 200,
@@ -24,23 +45,29 @@ class LocalAPI extends DataSource {
             }
         };
     }
-    createUser(username: string, email: string, password: string) {
+    async createUser(username: string, email: string, password: string) {
         console.log(`[CREATE_USER] username: ${username}, email: ${email}, password: ${password}`, 
             username, email, password);
+        const user: User = await prisma.user.create({
+            data: {
+                username: username,
+                email: email
+            }
+        })
         return {
             code: 200,
             success: true,
             message: "",
             user: {
-                email,
-                token: "333333",
-                username,
-                bio: "hello createUser",
-                image: "345.jpg"
+                email: user.email,
+                token: user.token,
+                username: user.username,
+                bio: user.bio,
+                image: user.image
             }
         };
     }
-    updateUser(email: string, token: string, username: string, bio: string, image: string) {
+    async updateUser(email: string, token: string, username: string, bio: string, image: string) {
         console.log(`[UPDATE_USER] email: ${email}, token: ${token}, username: ${username}, ` +
         `bio: ${bio}, image: ${image}`);
         return {

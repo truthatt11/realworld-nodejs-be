@@ -71,6 +71,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     dataSources: () => {
+        console.log("[APOLLO_SERVER] dataSources");
         return {
             localAPI: new LocalAPI(),
         }

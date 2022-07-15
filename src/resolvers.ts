@@ -2,23 +2,28 @@ import { User } from './variable-types'
 
 const resolvers = {
     Query: {
-        getUser: (_parent: any, _args: any, {dataSources}: any) => {
-            return dataSources.localAPI.getUser();
+        getUser: async (_parent: any, _args: any, {dataSources}: any) => {
+            console.log("[RESOLVER] getUser")
+            const user = await dataSources.localAPI.getUser();
+            return user;
         },
     },
     Mutation: {
-        loginUser: (_parent: any, args: any, { dataSources }: any) => {
+        loginUser: async (_parent: any, args: any, { dataSources }: any) => {
             const {email, password}: {email: string, password: string} = args;
-            return dataSources.localAPI.loginUser(email, password);
+            const user = await dataSources.localAPI.loginUser(email, password);
+            return user;
         },
-        createUser: (_parent: any, args: any, { dataSources }: any) => {
+        createUser: async (_parent: any, args: any, { dataSources }: any) => {
             const {username, email, password}: {username: string, email: string, password: string} = args;
-            return dataSources.localAPI.createUser(username, email, password);
+            const user: any = await dataSources.localAPI.createUser(username, email, password);
+            return user;
         },
-        updateUser: (_parent: any, args: any, { dataSources }: any) => {
+        updateUser: async (_parent: any, args: any, { dataSources }: any) => {
             const {email, token, username, bio, image}: 
                 {email: string, token: string, username: string, bio: string, image: string} = args;
-            return dataSources.localAPI.updateUser(email, token, username, bio, image);
+            const user = await dataSources.localAPI.updateUser(email, token, username, bio, image);
+            return user;
         },
     },
 };
