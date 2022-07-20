@@ -76,6 +76,10 @@ const server = new ApolloServer({
             localAPI: new LocalAPI(),
         }
     },
+    context: ({ req }) => ({
+        // authScope: getScope(req.headers.authorization)
+        authScope: req.headers.authorization
+    })
     // mocks
 });
 

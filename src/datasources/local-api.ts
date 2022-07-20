@@ -1,6 +1,6 @@
 import { DataSource } from 'apollo-datasource';
 import { PrismaClient } from '@prisma/client';
-import { User } from '../variable-types';
+// import { User } from '../variable-types';
 
 const prisma = new PrismaClient()
 
@@ -12,21 +12,18 @@ class LocalAPI extends DataSource {
 
     async getUser() {
         console.log('[GET_USER]');
-        // prisma.user.query({
-        //     data: {
-
-        //     }
-        // })
+        const user = await prisma.user.findMany({})
         return {
             code: 200,
             success: true,
             message: "get_user",
             user: {
-                email: "email.com",
-                token: "token",
-                username: "usernmae",
-                bio: "hello world",
-                image: "img.jpg", 
+                id: user[0].id.toString(),
+                email: user[0].email,
+                token: user[0].token,
+                username: user[0].username,
+                bio: user[0].bio,
+                image: user[0].image, 
             },
         };
     }
@@ -48,7 +45,7 @@ class LocalAPI extends DataSource {
     async createUser(username: string, email: string, password: string) {
         console.log(`[CREATE_USER] username: ${username}, email: ${email}, password: ${password}`, 
             username, email, password);
-        const user: User = await prisma.user.create({
+        const user = await prisma.user.create({
             data: {
                 username: username,
                 email: email
@@ -59,6 +56,7 @@ class LocalAPI extends DataSource {
             success: true,
             message: "",
             user: {
+                id: user.id.toString(),
                 email: user.email,
                 token: user.token,
                 username: user.username,

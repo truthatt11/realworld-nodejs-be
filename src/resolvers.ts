@@ -1,10 +1,11 @@
-import { User } from './variable-types'
+// import { User } from './variable-types'
 
 const resolvers = {
     Query: {
         getUser: async (_parent: any, _args: any, {dataSources}: any) => {
             console.log("[RESOLVER] getUser")
-            const user = await dataSources.localAPI.getUser();
+            // const username = _args.
+            const user = await dataSources.localAPI.getUser(0);
             return user;
         },
     },
