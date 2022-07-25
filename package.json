@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "NODE_ENV=development node dist/index.js"
+    "start": "NODE_ENV=development nodemon src/index.ts"
   },
   "devDependencies": {
     "nodemon": "^2.0.19",
