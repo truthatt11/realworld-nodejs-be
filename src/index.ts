@@ -77,11 +77,19 @@ const server = new ApolloServer({
         }
     },
     context: ({ req }) => ({
-        // authScope: getScope(req.headers.authorization)
-        authScope: req.headers.authorization
+        authScope: getScope(req.headers.authorization)
     })
     // mocks
 });
+
+const getScope = (auth: string | undefined) => {
+    if (auth) {
+        console.log(`auth: ${auth}\n`)
+        return auth
+    }
+    console.log('auth not exists')
+    return ''
+}
 
 server.listen().then(() => {
     console.log('apollo server started');

@@ -2,10 +2,9 @@
 
 const resolvers = {
     Query: {
-        getUser: async (_parent: any, _args: any, {dataSources}: any) => {
-            console.log("[RESOLVER] getUser")
-            // const username = _args.
-            const user = await dataSources.localAPI.getUser(0);
+        getUser: async (_parent: any, _args: any, {dataSources, authScope}: any) => {
+            console.log(`[RESOLVER] getUser, authScope: ${authScope}`)
+            const user = await dataSources.localAPI.getUser(authScope);
             return user;
         },
     },

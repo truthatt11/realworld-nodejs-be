@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS User (
     id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     email VARCHAR(255),
     token VARCHAR(255),
+    salted VARCHAR(255),
     username VARCHAR(255),
     bio VARCHAR(255),
     image VARCHAR(255)
